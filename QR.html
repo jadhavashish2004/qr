@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+        #container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #222;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        #logo {
+            width: 100px; /* Adjust width as needed */
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #333;
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #qrcode {
+            margin-top: 20px;
+        }
+        footer {
+            margin-top: 60px;
+            font-size: 30px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Logo image -->
+        <img src="https://i.postimg.cc/hGN7HBrr/tate-logo-1536x603.png" alt="Logo" id="logo">
+        <h1>QR Code Generator</h1>
+        <input type="text" id="urlInput" placeholder="Enter URL">
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qrcode"></div>
+    </div>
+
+    <footer>
+        <p>Created by TOP G</p>
+    </footer>
+
+    <!-- Include qrcode.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            var url = document.getElementById('urlInput').value;
+            var qrcodeContainer = document.getElementById('qrcode');
+            qrcodeContainer.innerHTML = ''; // Clear previous QR code
+
+            if (url) {
+                QRCode.toCanvas(url, { width: 200 }, function (error, canvas) {
+                    if (error) {
+                        console.error(error);
+                        qrcodeContainer.innerHTML = 'Failed to generate QR Code.';
+                    } else {
+                        qrcodeContainer.appendChild(canvas);
+                    }
+                });
+            } else {
+                qrcodeContainer.innerHTML = 'Please enter a URL.';
+            }
+        }
+    </script>
+</body>
+</html>
